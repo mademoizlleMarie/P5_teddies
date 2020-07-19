@@ -1,10 +1,13 @@
+import {API} from './config.js'
+
+const API_URL = `${API._HOST + API._DIR + API._CATEGORY}/`;
+
 var url = new URL(window.location);
 var id = url.searchParams.get("id");
 
 async function getproduit()
 {
-    const url2 = "http://localhost:3000/api/teddies"
-    const response = await fetch(url2+"/"+id);
+    const response = await fetch(API_URL+id);
     return response.json();
 }
 

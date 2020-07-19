@@ -1,5 +1,9 @@
+import {API} from './config.js'
+
+const API_URL = `${API._HOST + API._DIR + API._CATEGORY}`;
+
 async function retrieveContent() {
-    const url = "http://localhost:3000/api/teddies"
+
 
     /* //On crée un objet XMLHttpRequest
       let xhr = new XMLHttpRequest()  /*
@@ -40,7 +44,7 @@ async function retrieveContent() {
     request.send();
     console.log(request);*/
 
-    const response = await fetch(url);
+    const response = await fetch(API_URL);
     return response.json();
 }
 
