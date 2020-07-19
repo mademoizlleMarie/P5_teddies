@@ -1,5 +1,72 @@
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
 
+
+$primaryColor: rgb(0, 178, 165);
+
+@mixin primaryColor($color,$opacity) {
+  color:rgba($color, $opacity);
+}
+
+
+
 .card{
-  width: 18rem
+  width: 30rem;
+  margin: 3rem 10rem 0 10rem;
+  border-radius: 3rem 3rem 0.25rem 0.25rem ;
+}
+#card{
+  justify-content: center;
+}
+#produit{
+  justify-content: center;
+}
+footer{
+  margin-top: 15rem;
+}
+
+
+
+.navbar-light .navbar-brand{
+ @include primaryColor($primaryColor,1);
+}
+
+.navbar-light .navbar-nav .active >.nav-link {
+  @include primaryColor($primaryColor,0.8);
+
+}
+.navbar-light .navbar-nav .nav-link {
+  @include primaryColor($primaryColor,0.4);
+}
+.jumbotron{
+  display: flex;
+  margin-top: 2rem;
+}
+.jumbotron > div{
+   @include primaryColor($primaryColor,1);
+}
+.carousel{
+  width: 50%;
+}
+.d-block {
+  width: 25rem;
+  height: 18rem;
+}
+.infoAccueil{
+  @include primaryColor($primaryColor,1);
+text-align: center;
+
+}
+.card-title{
+  color: $primaryColor;
+  text-align: center;
+}
+.card-img-top{
+  border-radius: 3rem 3rem 0 0 ;
+}
+.prix{
+  text-align: right;
+  border-style: outset;
+  border-color: $primaryColor;
+  padding: 0 1rem 0 1rem;
+  margin-left: 40%;
 }
