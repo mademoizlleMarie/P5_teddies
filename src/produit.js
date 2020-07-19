@@ -13,7 +13,7 @@ getproduit()
 async function showProduit() {
     try {
         const produit = await getproduit();
-        console.log(produit);
+        console.log(produit.colors);
         let elt = document.getElementById('produit');
 
         var card = document.createElement("div");
@@ -36,15 +36,23 @@ async function showProduit() {
         textDescription.innerHTML = produit.description;
         cardBody.append(textDescription);
 
-        var textPrix = document.createElement("p");
-        textPrix.setAttribute("class", "card-text");
-        textPrix.innerHTML = produit.price / 100 + " €";
-        cardBody.append(textPrix);
+        var select = document.createElement("select");
+        select.setAttribute("class", "custom-select");
+
+        var optionDefault = document.createElement("option");
+        optionDefault.innerHTML = "Selectionnez la couleur de " + produit.name ;
+        select.append(optionDefault);
+        for ( let color of produit.colors) {
+            var option = document.createElement("option");
+            option.innerHTML = color;
+            select.append(option);
+        }
+        cardBody.append(select);
 
         var lienProduit = document.createElement("a");
-        lienProduit.setAttribute("class", "btn btn-primary");
-        lienProduit.setAttribute("href", "produit.html?id=" + produit._id);
-        lienProduit.innerHTML = "voir le produit";
+        lienProduit.setAttribute("class", "btn btn-outline-success");
+        lienProduit.setAttribute("href", "panier.html?id=" + produit._id);
+        lienProduit.innerHTML = "Adopter "+ produit.name +" pour "+ produit.price / 100 + " €";
         cardBody.append(lienProduit);
 
         card.append(img);
