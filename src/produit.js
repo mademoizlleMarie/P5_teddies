@@ -52,9 +52,11 @@ async function showProduit() {
         }
         cardBody.append(select);
 
-        var lienProduit = document.createElement("a");
+        var lienProduit = document.createElement("button");
+        lienProduit.addEventListener('click',function (){
+            addToBasket(produit._id);
+        });
         lienProduit.setAttribute("class", "btn btn-outline-success");
-        lienProduit.setAttribute("href", "panier.html?id=" + produit._id);
         lienProduit.innerHTML = "Adopter "+ produit.name +" pour "+ produit.price / 100 + " €";
         cardBody.append(lienProduit);
 
@@ -68,3 +70,14 @@ async function showProduit() {
 }
 
 showProduit();
+
+function addToBasket(id) {
+    if(sessionStorage.getItem("basket") == null){
+        sessionStorage.setItem("basket", JSON.stringify([]));
+    }
+    var basket = JSON.parse(sessionStorage.getItem("basket"));
+
+    basket.push(id);
+    sessionStorage.setItem("basket",JSON.stringify(basket));
+
+}

@@ -2,11 +2,11 @@ import {API} from './config.js'
 
 const API_URL = `${API._HOST + API._DIR + API._CATEGORY}`;
 
-async function retrieveContent() {
+
 
 
     /* //On crée un objet XMLHttpRequest
-      let xhr = new XMLHttpRequest()  /*
+      let xhr = new XMLHttpRequest()
   //On initialise notre requête avec open()
       xhr.open("GET", url);
 
@@ -32,23 +32,69 @@ async function retrieveContent() {
       xhr.onerror = function () {
           alert("La requête a échoué");
       };*/
+var getTeddies = new Promise((resolve,reject)=>{
+    var request = new XMLHttpRequest();
 
-    /*var request = new XMLHttpRequest();
-
-   request.onreadystatechange = function() {
+    request.onreadystatechange = function() {
         if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
-            var response = JSON.parse(this.responseText);
+            resolve(JSON.parse(this.responseText));
+        }else if(this.readyState == XMLHttpRequest.DONE && his.status != 200 ){
+            reject(this.responseText);
         }
     };
-    request.open("GET", url);
+    request.open("GET","http://localhost:3000/api/teddies");
     request.send();
-    console.log(request);*/
+});
+getTeddies.then((result)=>{
+    let elt = document.getElementById('card');
+    for ( let produit of result) {
+        var card = document.createElement("div");
+        card.setAttribute("class", "card");
 
-    const response = await fetch(API_URL);
-    return response.json();
-}
+        var img = document.createElement("img");
+        img.setAttribute("class", "card-img-top");
+        img.setAttribute("src", produit.imageUrl);
 
-async function showContent() {
+        var cardBody = document.createElement("div");
+        cardBody.setAttribute("class", "card-body");
+
+        var title = document.createElement("h5");
+        title.setAttribute("class", "card-title");
+        title.innerHTML = "Adoptez "+ produit.name;
+        cardBody.append(title);
+
+        var textDescription = document.createElement("p");
+        textDescription.setAttribute("class", "card-text");
+        textDescription.innerHTML = produit.description;
+        cardBody.append(textDescription);
+
+        var textPrix = document.createElement("p");
+        textPrix.setAttribute("class", "card-text prix");
+        textPrix.innerHTML = " Prix tout doux de : "+produit.price / 100 + " €";
+        cardBody.append(textPrix);
+
+        var lienProduit = document.createElement("a");
+        lienProduit.setAttribute("class", "btn btn-outline-success");
+        lienProduit.setAttribute("href", "produit.html?id=" + produit._id);
+        lienProduit.innerHTML = "Plus de détail sur " + produit.name;
+        cardBody.append(lienProduit);
+
+        card.append(img);
+        card.append(cardBody);
+        elt.append(card);
+
+    }
+
+});
+getTeddies.catch((result)=>{
+
+});
+
+
+   /* const response = await fetch(API_URL);
+
+
+/*async function showContent() {
     try {
         const listeProduit = await retrieveContent();
         console.log(listeProduit);
@@ -93,9 +139,9 @@ async function showContent() {
     } catch (e) {
         console.log('Error', e);
     }
-}
+}*/
 
-async function Carousel() {
+/*async function Carousel() {
     try {
         const listeProduit = await retrieveContent();
         let elt = document.getElementById('carousel');
@@ -166,3 +212,4 @@ showContent();
 Carousel();
 
 
+*/
