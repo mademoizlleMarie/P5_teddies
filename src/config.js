@@ -4,4 +4,4 @@ const API = {
     _CATEGORY: 'teddies',
 };
 
-export {  API };
+export {API};
