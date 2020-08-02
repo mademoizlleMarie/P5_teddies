@@ -5,18 +5,27 @@ const API_URL = `${API._HOST + API._DIR + API._CATEGORY}/`;
 var url = new URL(window.location);
 var id = url.searchParams.get("id");
 
-async function getproduit()
-{
-    const response = await fetch(API_URL+id);
-    return response.json();
-}
+var getProduit = new Promise((resolve,reject)=>{
+    var request = new XMLHttpRequest();
 
-getproduit()
+    request.onreadystatechange = function() {
+        if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+            resolve(JSON.parse(this.responseText));
+        }else if(this.readyState == XMLHttpRequest.DONE && his.status != 200 ){
+            reject(this.responseText);
+        }
+    };
+    request.open("GET",API_URL+id);
+    request.send();
+});
 
-async function showProduit() {
-    try {
-        const produit = await getproduit();
-        console.log(produit.colors);
+getProduit.then((result)=>{
+    showProduit(result);
+});
+getProduit.catch((result)=>{
+});
+
+function showProduit(produit) {
         let elt = document.getElementById('produit');
 
         var card = document.createElement("div");
@@ -63,13 +72,7 @@ async function showProduit() {
         card.append(img);
         card.append(cardBody);
         elt.append(card);
-
-    } catch (e) {
-        console.log('Error', e);
-    }
 }
-
-showProduit();
 
 function addToBasket(id) {
     if(sessionStorage.getItem("basket") == null){
