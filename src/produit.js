@@ -75,12 +75,12 @@ function showProduit(produit) {
 }
 
 function addToBasket(id) {
-    if(sessionStorage.getItem("basket") == null){
-        sessionStorage.setItem("basket", JSON.stringify([]));
+    if(sessionStorage.getItem("panier") == null){
+        sessionStorage.setItem("panier", JSON.stringify([]));
     }
-    var basket = JSON.parse(sessionStorage.getItem("basket"));
+    var panier = JSON.parse(sessionStorage.getItem("panier"));
 
-    basket.push(id);
-    sessionStorage.setItem("basket",JSON.stringify(basket));
-
+    panier.push(id);
+    sessionStorage.setItem("panier",JSON.stringify(panier));
+    window.location = "panier.html";
 }
