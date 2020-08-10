@@ -2,103 +2,105 @@ import {API} from './config.js'
 
 const API_URL = `${API._HOST + API._DIR + API._CATEGORY}`;
 
-// Récupérer des données depuis sessionStorage
-var data = sessionStorage.getItem('panier');
-console.log(data);
-
-var getAllProduit = new Promise((resolve,reject)=>{
-    var request = new XMLHttpRequest();
-
-    request.onreadystatechange = function() {
-        if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
-            resolve(JSON.parse(this.responseText));
-        }else if(this.readyState == XMLHttpRequest.DONE && his.status != 200 ){
-            reject(this.responseText);
-        }
-    };
-    request.open("GET",API_URL);
-    request.send();
-});
-
-getAllProduit.then((result)=>{
-    showPanier();
-});
-getAllProduit.catch((result)=>{
-});
-
-function getProduit(e) {
-console.log(e);
-    var getProduit = new Promise((resolve, reject) => {
+// recherche d'un produit
+function getProduit(id) {
+    return new Promise((resolve,reject)=>{
         var request = new XMLHttpRequest();
-
-        request.onreadystatechange = function () {
+        request.onreadystatechange = function() {
             if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
                 resolve(JSON.parse(this.responseText));
-            } else if (this.readyState == XMLHttpRequest.DONE && his.status != 200) {
+            }else if(this.readyState == XMLHttpRequest.DONE && this.status != 200 ){
                 reject(this.responseText);
+                console.log((this.responseText))
             }
         };
-        request.open("GET", API_URL);
+        request.open("GET",API_URL+'/'+id);
         request.send();
-    });
-
-    getProduit.then((result) => {
-
-    });
-    getProduit.catch((result) => {
-    });
+    })
 }
-function showPanier(listeProduit) {
 
-    let elt = document.getElementById('Panier');
+async function chargementPanier() {
+    // Récupérer des données depuis sessionStorage
+    var data = JSON.parse(sessionStorage.getItem('panier'));
+    // verifie que le panier n'est pas vide
+    if (data !== "") {
+            let listeProduit = [];
+            for (var idProduit of data) {
+                var produit = listeProduit.find(produit => produit.id == idProduit);
+                if (produit === undefined) {
+                    await getProduit(idProduit).then((produit) => {
+                        listeProduit.push({
+                            id: produit._id,
+                            image: produit.imageUrl,
+                            nom: produit.name,
+                            prixUnitaire: produit.price / 100,
+                            prixTotal : produit.price / 100,
+                            quantite: 1
+                        });
+                    });
+                } else {
+                    produit.quantite++;
+                    produit.prixTotal = produit.quantite * produit.prixUnitaire ;
+                }
 
-    var table = document.createElement("table");
+            }
+            let prixTotalProduit = [];
+            for (let produit of listeProduit) {
+                prixTotalProduit.push(produit.prixTotal);
+               var prixPanier = prixTotalProduit.reduce((accumulator, currentValue) => accumulator + currentValue);
+                afficheProduitPanier(produit);
 
-    var thead = document.createElement("thead");
-
-    var tr = document.createElement("tr");
-
-    var thImg = document.createElement("th");
-    thImg.innerHTML = "image";
-    tr.append(thImg);
-
-    var thNom = document.createElement("th");
-    thNom.innerHTML = "Nom";
-    tr.append(thNom);
-
-    var thQte = document.createElement("th");
-    thQte.innerHTML = "Quantité";
-    tr.append(thQte);
-
-    var thPrix = document.createElement("th");
-    thPrix.innerHTML = "Prix";
-    tr.append(thPrix);
-
-    var tbody = document.createElement("tbody");
-    data.forEach( data => getProduit(data));
-        
-        var trB = document.createElement("tr");
-
-        var tdImg = document.createElement("td");
-        tdImg.innerHTML = "image";
-        trB.append(tdImg);
-
-        var tdNom = document.createElement("td");
-        tdNom.innerHTML = "Nom";
-        trB.append(tdNom);
-
-        var tdQte = document.createElement("td");
-        tdQte.innerHTML = "Quantité";
-        trB.append(tdQte);
-
-        var tdPrix = document.createElement("td");
-        tdPrix.innerHTML = "Prix";
-        trB.append(tdPrix);
-
-        tbody.append(trB);
-);
-    thead.append(tr);
-    table.append(thead);
-    table.append(tbody);
-    elt.append(table);
+            }
+            affiche(prixPanier);
+    } else {
+        reject(data);
+    }
 }
+chargementPanier();
+
+function affiche(prixPanier){
+    console.log(prixPanier)
+    let tbody= document.getElementById('bodyPanier');
+
+    let trF = document.createElement("tr");
+
+    let tdF = document.createElement("td");
+    tdF.setAttribute("colspan", "5");
+    tdF.setAttribute("class", "prixTotalPanier");
+    tdF.innerHTML = "Le prix total est de " + prixPanier + "€";
+
+    trF.append(tdF)
+    tbody.append(trF)
+}
+function afficheProduitPanier(produit){
+    var tbody = document.getElementById('bodyPanier');
+
+    var trB = document.createElement("tr");
+
+    var tdImg = document.createElement("td");
+
+    var img = document.createElement("img");
+    img.setAttribute("class", "imgPanier");
+    img.setAttribute("src", produit.image);
+    tdImg.append(img);
+    trB.append(tdImg);
+
+    var tdNom = document.createElement("td");
+    tdNom.innerHTML = produit.nom;
+    trB.append(tdNom);
+
+    var tdQte = document.createElement("td");
+    tdQte.innerHTML = produit.quantite;
+    trB.append(tdQte);
+
+    var tdPrixU = document.createElement("td");
+    tdPrixU.innerHTML = produit.prixUnitaire + "€";
+    trB.append(tdPrixU);
+
+    var tdPrixT = document.createElement("td");
+    tdPrixT.innerHTML = produit.prixTotal + "€";
+    trB.append(tdPrixT);
+
+    tbody.append(trB);
+}
+

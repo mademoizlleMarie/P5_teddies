@@ -9578,11 +9578,46 @@ footer {
   border-style: outset;
   border-color: #00b2a5;
   padding: 0 1rem 0 1rem;
-  margin-left: 40%;
+  margin-left: 50%;
 }
 
 select {
   margin-bottom: 1rem;
+}
+
+.imgPanier {
+  width: 100px;
+}
+
+#Panier table {
+  width: 100%;
+}
+
+#Panier table thead tr {
+  border: solid 1px #0b2e13;
+  text-align: center;
+}
+
+#Panier table tbody tr {
+  border: solid 1px #0b2e13;
+}
+
+#Panier table th {
+  padding: 0.75rem;
+  vertical-align: top;
+}
+
+#Panier table td {
+  padding: 0.75rem;
+  vertical-align: top;
+}
+
+#Panier table tfoot tr {
+  border: solid 1px #0b2e13;
+}
+
+.prixTotalPanier {
+  text-align: center;
 }
 
 /*# sourceMappingURL=main.css.map */
