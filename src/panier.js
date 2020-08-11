@@ -23,7 +23,8 @@ async function chargementPanier() {
     // Récupérer des données depuis sessionStorage
     var data = JSON.parse(sessionStorage.getItem('panier'));
     // verifie que le panier n'est pas vide
-    if (data !== "") {
+    if (data !== null) {
+        console.log(data);
             let listeProduit = [];
             for (var idProduit of data) {
                 var produit = listeProduit.find(produit => produit.id == idProduit);
@@ -51,26 +52,26 @@ async function chargementPanier() {
                 afficheProduitPanier(produit);
 
             }
-            affiche(prixPanier);
+        affichePrixTotalPanier(prixPanier);
     } else {
-        reject(data);
+        affichePanierVide();
     }
 }
 chargementPanier();
 
-function affiche(prixPanier){
-    console.log(prixPanier)
+function affichePrixTotalPanier(prixPanier){
+
     let tbody= document.getElementById('bodyPanier');
 
-    let trF = document.createElement("tr");
+    let tr = document.createElement("tr");
 
-    let tdF = document.createElement("td");
-    tdF.setAttribute("colspan", "5");
-    tdF.setAttribute("class", "prixTotalPanier");
-    tdF.innerHTML = "Le prix total est de " + prixPanier + "€";
+    let td = document.createElement("td");
+    td.setAttribute("colspan", "5");
+    td.setAttribute("class", "prixTotalPanier");
+    td.innerHTML = "Le prix total est de " + prixPanier + "€";
 
-    trF.append(tdF)
-    tbody.append(trF)
+    tr.append(td)
+    tbody.append(tr)
 }
 function afficheProduitPanier(produit){
     var tbody = document.getElementById('bodyPanier');
@@ -104,3 +105,15 @@ function afficheProduitPanier(produit){
     tbody.append(trB);
 }
 
+function affichePanierVide(){
+    let tbody= document.getElementById('bodyPanier');
+
+    let tr = document.createElement("tr");
+
+    let td= document.createElement("td");
+    td.setAttribute("colspan", "5");
+    td.innerHTML = "Votre panier est vide";
+
+    tr.append(td)
+    tbody.append(tr)
+}
