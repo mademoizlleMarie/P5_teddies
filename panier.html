@@ -60,6 +60,70 @@
             </table>
         </div>
     </article>
+    <div class="container">
+        <form>
+        <fieldset>
+            <legend>Veuillez compléter le formulaire</legend>
+            <div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="Nom">Nom</label>
+                    <input type="text" class="form-control" id="Nom" placeholder="Nom">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="Prénom">Prénom</label>
+                    <input type="text" class="form-control" id="Prénom" placeholder="Prénom">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputEmail">Email</label>
+                    <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputAdresse">Adresse</label>
+                <input type="text" class="form-control" id="inputAdresse" placeholder="12 rue du bonheur">
+            </div>
+            <div class="form-group">
+                <label for="inputAdresse2">Adresse 2</label>
+                <input type="text" class="form-control" id="inputAdresse2" placeholder="complément">
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputVille">Ville</label>
+                    <input type="text" class="form-control" id="inputVille">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputCP">Code Postal</label>
+                    <input type="text" class="form-control" id="inputCP">
+                </div>
+            </div>
+                <p class="lead font-weight-bold text-dark">Coordonnées bancaire</p>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="CB">N° de carte bancaire</label>
+                        <input type="text" id="CB" class="form-control" data-mask="0000 0000 0000 0000" placeholder="4789-5697-0541-7546" name="creditCard" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="dateExpiration">Date d'expiration</label>
+                        <input id="dateExpiration" type="text" class="form-control" data-mask="00/00" placeholder="mm/aaaa" name="date" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="CVC">CVC code</label>
+                        <input id="CVC" type="text" class="form-control" data-mask="000" placeholder="746" name="cvc" required>
+                    </div>
+
+                </div>
+                <div class="mt-4 text-right">
+                    <a href="index.html" class="btn btn-link text-sm text-dark font-weight-bold">Retourner au magasin</a>
+                    <button type="submit" class="btn btn-sm btn-success" id="button">Valider</button>
+                </div>
+            </div>
+        </fieldset>
+        </form>
+    </div>
+
+
+
     <footer class="bg-light">
         <div class="container">
             <div class="row">
