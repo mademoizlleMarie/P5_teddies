@@ -1,0 +1,5 @@
+function formulaire() {
+
+
+}
+formulaire();
