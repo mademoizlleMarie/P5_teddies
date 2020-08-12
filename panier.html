@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <script type="module" src="src/panier.js"></script>
+    <script type="module" src="src/validationFormulaire.js"></script>
     <link rel="stylesheet" href="css/main.css" />
     <title>Orinoco - " Teddy à adopter "</title>
 </head>
@@ -62,12 +63,12 @@
 <div class="container">
     <form method="post" action="traitement.php">
     <fieldset>
-            <legend>Veuillez compléter le formulaire</legend>
+            <legend>Veuillez compléter le Formulaire</legend>
             <div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="Nom">Nom *</label>
-                        <input type="text" class="form-control" id="Nom" placeholder="Nom" required>
+                        <label for="nom">Nom *</label>
+                        <input type="text" class="form-control" id="nom" placeholder="Nom" required>
                         <span id="nomVide"></span>
                     </div>
                     <div class="form-group col-md-6">
@@ -77,12 +78,14 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputEmail">Email *</label>
-                        <input type="email" class="form-control" id="inputEmail" placeholder="Email" required>
+                        <input type="email" class="form-control" id="inputEmail" placeholder="Email@gmail.com" required>
+                        <span id="inputEmailVide"></span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="inputAdresse">Adresse *</label>
-                    <input type="text" class="form-control" id="inputAdresse" placeholder="12 rue du bonheur" required>
+                    <label for="Adresse">Adresse *</label>
+                    <input type="text" class="form-control" id="Adresse" placeholder="12 rue du bonheur" required>
+                    <span id="AdresseVide"></span>
                 </div>
                 <div class="form-group">
                     <label for="inputAdresse2">Adresse 2</label>
@@ -90,12 +93,14 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-4">
-                        <label for="inputCP">Code Postal *</label>
-                        <input type="text" class="form-control" id="inputCP" maxlength="5" required>
+                        <label for="CP">Code Postal *</label>
+                        <input type="number" class="form-control" id="CP" maxlength="5" required>
+                        <span id="CPVide"></span>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="inputVille">Ville *</label>
-                        <input type="text" class="form-control" id="inputVille" required>
+                        <label for="ville">Ville *</label>
+                        <input type="text" class="form-control" id="ville" required>
+                        <span id="villeVide"></span>
                     </div>
                 </div>
                 <small> *  champs obligatoire </small>
@@ -107,13 +112,12 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label for="dateExpiration">Date d'expiration</label>
-                        <input id="dateExpiration" type="text" class="form-control" data-mask="00/00" placeholder="mm/aaaa" name="date" required>
+                        <input id="dateExpiration" type="month" class="form-control" data-mask="00/00" placeholder="mm/aaaa" name="date" required>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="CVC">CVC code</label>
                         <input id="CVC" type="text" class="form-control" data-mask="000" placeholder="746" name="cvc" required>
                     </div>
-
                 </div>
                 <div class="mt-4 text-right">
                     <a href="index.html" class="btn btn-link text-sm text-dark font-weight-bold">Retourner au magasin</a>
@@ -122,43 +126,6 @@
             </div>
         </fieldset>
     </form>
-    <script>
-        /*
-    *  https://www.pierre-giraud.com/javascript-apprendre-coder-cours/validation-formulaire/
-    */
-        var regex = /^[a-zA-ZéèîïÉÈÎÏ][a-zéèêàçîï]+([-'\s][a-zA-ZéèîïÉÈÎÏ][a-zéèêàçîï]+)?$/;
-    var formValid = document.getElementById('boutton_envoi');
-    var prenom = document.getElementById('prenom');
-    var prenomVide = document.getElementById('prenomVide');
-    var prenomValid = regex;
-
-    var Nom = document.getElementById('Nom');
-    var NomVide = document.getElementById('nomVide');
-    var NomValid = regex;
-    formValid.addEventListener('click',validation);
-    function validation(event) {
-        if (prenom.validity.valueMissing) {
-            event.preventDefault();
-            prenomVide.textContent = 'Prénom manquant';
-            prenomVide.style.color = 'red';
-        } else if (prenomValid.test(prenom.value) == false) {
-            event.preventDefault();
-            prenomVide.textContent = 'Format incorrect';
-            prenomVide.style.color = 'orange';
-        }
-
-        if (Nom.validity.valueMissing) {
-            event.preventDefault();
-            NomVide.textContent = 'Nom manquant';
-            NomVide.style.color = 'red';
-        }else if (NomValid.test(prenom.value) == false) {
-            event.preventDefault();
-            NomVide.textContent = 'Format incorrect';
-            NomVide.style.color = 'orange';
-        }
-
-    }
-</script>
 </div>
 
 <footer class="bg-light">
