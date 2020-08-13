@@ -1,5 +1,8 @@
+import {API} from './config.js'
 
-function getProduit(id){
+const API_URL = `${API._HOST + API._DIR + API._CATEGORY}`;
+
+export function getProduit(id){
     return new Promise((resolve,reject)=>{
         var request = new XMLHttpRequest();
         request.onreadystatechange = function() {
@@ -9,7 +12,7 @@ function getProduit(id){
                 reject(this.responseText);
             }
         };
-        request.open("GET",API_URL+id);
+        request.open("GET",API_URL+'/'+id);
         request.send();
     });
 }
