@@ -8,7 +8,7 @@ var getTeddies = new Promise((resolve,reject)=>{
     request.onreadystatechange = function() {
         if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
             resolve(JSON.parse(this.responseText));
-        }else if(this.readyState == XMLHttpRequest.DONE && his.status != 200 ){
+        }else if(this.readyState == XMLHttpRequest.DONE && this.status != 200 ){
             reject(this.responseText);
         }
     };
