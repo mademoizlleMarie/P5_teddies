@@ -1,44 +1,5 @@
 import {getProduit} from './function.js'
-
-async function chargementPanier() {
-    // Récupérer des données depuis sessionStorage
-    var data = JSON.parse(sessionStorage.getItem('panier'));
-    // verifie que le panier n'est pas vide
-    if (data !== null) {
-        console.log(data);
-            let listeProduit = [];
-            for (var idProduit of data) {
-                var produit = listeProduit.find(produit => produit.id == idProduit);
-                if (produit === undefined) {
-                    await getProduit(idProduit).then((produit) => {
-                        listeProduit.push({
-                            id: produit._id,
-                            image: produit.imageUrl,
-                            nom: produit.name,
-                            prixUnitaire: produit.price / 100,
-                            prixTotal : produit.price / 100,
-                            quantite: 1
-                        });
-                    });
-                } else {
-                    produit.quantite++;
-                    produit.prixTotal = produit.quantite * produit.prixUnitaire ;
-                }
-
-            }
-            let prixTotalProduit = [];
-            for (let produit of listeProduit) {
-                prixTotalProduit.push(produit.prixTotal);
-               var prixPanier = prixTotalProduit.reduce((accumulator, currentValue) => accumulator + currentValue);
-                afficheProduitPanier(produit);
-
-            }
-        affichePrixTotalPanier(prixPanier);
-    } else {
-        affichePanierVide();
-    }
-}
-chargementPanier();
+import {validationFormulaire} from './validationFormulaire.js'
 
 function affichePrixTotalPanier(prixPanier){
 
@@ -85,7 +46,6 @@ function afficheProduitPanier(produit){
 
     tbody.append(trB);
 }
-
 function affichePanierVide(){
     let tbody= document.getElementById('bodyPanier');
 
@@ -98,3 +58,43 @@ function affichePanierVide(){
     tr.append(td)
     tbody.append(tr)
 }
+
+async function chargementPanier() {
+    // Récupérer des données depuis sessionStorage
+    var data = JSON.parse(sessionStorage.getItem('panier'));
+    // verifie que le panier n'est pas vide
+    if (data !== null) {
+        console.log(data);
+            let listeProduit = [];
+            for (var idProduit of data) {
+                var produit = listeProduit.find(produit => produit.id == idProduit);
+                if (produit === undefined) {
+                    await getProduit(idProduit).then((produit) => {
+                        listeProduit.push({
+                            id: produit._id,
+                            image: produit.imageUrl,
+                            nom: produit.name,
+                            prixUnitaire: produit.price / 100,
+                            prixTotal : produit.price / 100,
+                            quantite: 1
+                        });
+                    });
+                } else {
+                    produit.quantite++;
+                    produit.prixTotal = produit.quantite * produit.prixUnitaire ;
+                }
+
+            }
+            let prixTotalProduit = [];
+            for (let produit of listeProduit) {
+                prixTotalProduit.push(produit.prixTotal);
+               var prixPanier = prixTotalProduit.reduce((accumulator, currentValue) => accumulator + currentValue);
+                afficheProduitPanier(produit);
+
+            }
+        affichePrixTotalPanier(prixPanier);
+    } else {
+        affichePanierVide();
+    }
+}
+chargementPanier();
