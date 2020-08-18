@@ -9541,12 +9541,12 @@ footer {
   color: rgba(0, 178, 165, 0.4);
 }
 
-.jumbotron {
+.jumbotron--accueil {
   display: flex;
   margin-top: 2rem;
 }
 
-.jumbotron > div {
+.jumbotron--accueil > div {
   color: #00b2a5;
 }
 

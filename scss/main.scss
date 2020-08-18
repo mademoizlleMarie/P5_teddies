@@ -37,11 +37,11 @@ footer{
 .navbar-light .navbar-nav .nav-link {
   @include primaryColor($primaryColor,0.4);
 }
-.jumbotron{
+.jumbotron--accueil{
   display: flex;
   margin-top: 2rem;
 }
-.jumbotron > div{
+.jumbotron--accueil > div{
    @include primaryColor($primaryColor,1);
 }
 .carousel{

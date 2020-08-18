@@ -64,7 +64,6 @@ async function chargementPanier() {
     var data = JSON.parse(sessionStorage.getItem('panier'));
     // verifie que le panier n'est pas vide
     if (data !== null) {
-        console.log(data);
             let listeProduit = [];
             for (var idProduit of data) {
                 var produit = listeProduit.find(produit => produit.id == idProduit);
@@ -93,6 +92,13 @@ async function chargementPanier() {
 
             }
         affichePrixTotalPanier(prixPanier);
+        if(sessionStorage.getItem("totalPrixPanier") == null){
+
+            sessionStorage.setItem("totalPrixPanier", JSON.stringify([]));
+        }
+        var totalPrixPanier = JSON.parse(sessionStorage.getItem("totalPrixPanier"));
+        totalPrixPanier.push(prixPanier);
+        sessionStorage.setItem("totalPrixPanier",JSON.stringify(totalPrixPanier));
     } else {
         affichePanierVide();
     }

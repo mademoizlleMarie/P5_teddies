@@ -96,8 +96,6 @@ export function validationFormulaire() {
 
         // finir coordonnées bancaire
 
-
-
         if (!error) {
            event.preventDefault();
           /*  var data = new FormData();
@@ -117,9 +115,10 @@ export function validationFormulaire() {
                         "city": ville.value,
                         "email": inputEmail.value
                     },
-                    "products": JSON.parse(sessionStorage.getItem('panier'))
-                }
+                    "products": JSON.parse(sessionStorage.getItem('panier')),
 
+                }
+console.log(panier);
             var envoiPanier = new Promise((resolve, reject) => {
                 var request = new XMLHttpRequest();
 
@@ -138,16 +137,17 @@ export function validationFormulaire() {
             envoiPanier.then((result) => {
                 console.log(result);
 
-                sessionStorage.clear();
+                //sessionStorage.clear();
                     if(sessionStorage.getItem("validation") == null){
 
                         sessionStorage.setItem("validation", JSON.stringify([]));
                     }
                     var validation = JSON.parse(sessionStorage.getItem("validation"));
 
-                    panier.push(result);
+                validation.push(result);
+                validation.push();
                     sessionStorage.setItem("validation",JSON.stringify(validation));
-              //  window.location = "confirmation.html";
+               window.location = "confirmation.html";
             });
             envoiPanier.catch((reject) => {
                 console.log(reject);
