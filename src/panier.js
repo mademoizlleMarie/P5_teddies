@@ -99,6 +99,7 @@ async function chargementPanier() {
         var totalPrixPanier = JSON.parse(sessionStorage.getItem("totalPrixPanier"));
         totalPrixPanier.push(prixPanier);
         sessionStorage.setItem("totalPrixPanier",JSON.stringify(totalPrixPanier));
+
     } else {
         affichePanierVide();
     }

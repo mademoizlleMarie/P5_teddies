@@ -1,18 +1,18 @@
 
-
-
 async function afficheConfirmation() {
-    // Récupérer des données depuis sessionStorage
-    var data = JSON.parse(sessionStorage.getItem('validation'));
-    // verifie que le panier n'est pas vide
-    if (data !== null) {
-        console.log(data);
-        let span = document.getElementById('Confirmation');
-        let p = document.createElement("p");
-        p.innerHTML = "Le prix total de vote commande est de "+ data[0] +". ";
 
+    var validation = JSON.parse(sessionStorage.getItem('validation'));
+    var orderId = validation[0].orderId;
+    var totalPrixPanier = JSON.parse(sessionStorage.getItem('totalPrixPanier'))[0];
+
+        let span = document.getElementById('Confirmation');
+
+        let p = document.createElement("p");
+        p.innerHTML = "Le prix total de votre commande est de "+ totalPrixPanier +" €. ";
         span.append(p)
 
-    }
+        let p2 = document.createElement("p");
+        p2.innerHTML = "Le numéro de votre commande est le "+ orderId +" . ";
+        span.append(p2)
 }
 afficheConfirmation();
