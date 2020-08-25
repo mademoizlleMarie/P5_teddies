@@ -10,7 +10,7 @@ function affichePrixTotalPanier(prixPanier){
     let td = document.createElement("td");
     td.setAttribute("colspan", "5");
     td.setAttribute("class", "prixTotalPanier");
-    td.innerHTML = "Le prix total est de " + prixPanier + "€";
+    td.innerHTML = "Le prix total de votre panier est de " + prixPanier + "€";
 
     tr.append(td)
     tbody.append(tr)
