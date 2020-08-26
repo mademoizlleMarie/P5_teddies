@@ -26,7 +26,6 @@ getTeddies.then((result)=>{
 getTeddies.catch((result)=>{
 });
 
-
 function showContent(listeProduit) {
 
     let elt = document.getElementById('card');
@@ -128,3 +127,5 @@ function Carousel(listeProduit) {
     inner.append(item4);
     elt.append(inner);
 }
+
+

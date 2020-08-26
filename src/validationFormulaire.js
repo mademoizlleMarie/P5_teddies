@@ -97,15 +97,7 @@ export function validationFormulaire() {
         // finir coordonnées bancaire
 
         if (!error) {
-           event.preventDefault();
-          /*  var data = new FormData();
-            data.append("contact",JSON.stringify({
-                "firstName": nom.value,
-                "lastName": prenom.value,
-                "address": Adresse.value,
-                "city": ville.value,
-                "email": inputEmail.value}));
-            data.append("products",sessionStorage.getItem('panier'));*/
+            event.preventDefault();
             var panier =
                 {
                     "contact": {
@@ -116,9 +108,7 @@ export function validationFormulaire() {
                         "email": inputEmail.value
                     },
                     "products": JSON.parse(sessionStorage.getItem('panier')),
-
                 }
-console.log(panier);
             var envoiPanier = new Promise((resolve, reject) => {
                 var request = new XMLHttpRequest();
 
@@ -130,24 +120,22 @@ console.log(panier);
                     }
                 };
                 request.open("POST", API_URL + '/order');
-                request.setRequestHeader('Content-Type','application/json');
+                request.setRequestHeader('Content-Type', 'application/json');
                 request.send(JSON.stringify(panier));
-                //request.send(data);
             });
             envoiPanier.then((result) => {
                 console.log(result);
 
-                //sessionStorage.clear();
-                    if(sessionStorage.getItem("validation") == null){
+                if (sessionStorage.getItem("validation") == null) {
 
-                        sessionStorage.setItem("validation", JSON.stringify([]));
-                    }
-                    var validation = JSON.parse(sessionStorage.getItem("validation"));
+                    sessionStorage.setItem("validation", JSON.stringify([]));
+                }
+                var validation = JSON.parse(sessionStorage.getItem("validation"));
 
                 validation.push(result);
                 validation.push();
-                    sessionStorage.setItem("validation",JSON.stringify(validation));
-               window.location = "confirmation.html";
+                sessionStorage.setItem("validation", JSON.stringify(validation));
+                window.location = "confirmation.html";
             });
             envoiPanier.catch((reject) => {
                 console.log(reject);

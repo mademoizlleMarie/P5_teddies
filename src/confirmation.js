@@ -16,3 +16,6 @@ async function afficheConfirmation() {
         span.append(p2)
 }
 afficheConfirmation();
+
+var RetourAccueil = document.getElementById("RetourAccueil");
+RetourAccueil.addEventListener("click",sessionStorage.clear())
