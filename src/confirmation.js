@@ -1,4 +1,3 @@
-
 async function afficheConfirmation() {
 
     var validation = JSON.parse(sessionStorage.getItem('validation'));
@@ -17,5 +16,6 @@ async function afficheConfirmation() {
 }
 afficheConfirmation();
 
+// suppression des données si retour à la page d'accueil
 var RetourAccueil = document.getElementById("RetourAccueil");
 RetourAccueil.addEventListener("click",sessionStorage.clear())

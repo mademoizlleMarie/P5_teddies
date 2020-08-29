@@ -1,3 +1,5 @@
+
+//permet de faire la jonction avec une fonction commune
 import {getProduit} from './function.js'
 
 var url = new URL(window.location);
@@ -9,6 +11,7 @@ getProduit(id).then((result)=>{
 getProduit(id).catch((result)=>{
 });
 
+// affichage du produit séléctionné
 function showProduit(produit) {
         let elt = document.getElementById('produit');
 
@@ -58,6 +61,7 @@ function showProduit(produit) {
         elt.append(card);
 }
 
+//lors du clique ajout en session de l'id du produit et redirection vers la page panier
 function addToBasket(id) {
     if(sessionStorage.getItem("panier") == null){
 

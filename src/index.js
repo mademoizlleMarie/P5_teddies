@@ -2,6 +2,7 @@ import {API} from './config.js'
 
 const API_URL = `${API._HOST + API._DIR + API._CATEGORY}`;
 
+// permet d'accéder l'api
 var getTeddies = new Promise((resolve,reject)=>{
     var request = new XMLHttpRequest();
 
@@ -19,15 +20,16 @@ var getTeddies = new Promise((resolve,reject)=>{
 getTeddies.then((result)=>{
     showContent(result);
     Carousel(result);
-  /*  let elt = document.getElementById('card');
-    for ( let produit of result) */
 
 });
 getTeddies.catch((result)=>{
+
 });
 
+// affiche des teddies avec les informations
 function showContent(listeProduit) {
 
+    // création d'une carte pour chaque produit
     let elt = document.getElementById('card');
     for (let produit of listeProduit) {
         var card = document.createElement("div");
@@ -67,6 +69,7 @@ function showContent(listeProduit) {
     }
 }
 
+// Carousel liste des images des teddies
 function Carousel(listeProduit) {
 
     let elt = document.getElementById('carousel');

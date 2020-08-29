@@ -1,5 +1,4 @@
 import {getProduit} from './function.js'
-import {validationFormulaire} from './validationFormulaire.js'
 
 function affichePrixTotalPanier(prixPanier){
 
@@ -59,6 +58,7 @@ function affichePanierVide(){
     tbody.append(tr)
 }
 
+//création du panier avec mise à jour de la quantité et du prix total par ligne et pour le panier complet
 async function chargementPanier() {
     // Récupérer des données depuis sessionStorage
     var data = JSON.parse(sessionStorage.getItem('panier'));
@@ -82,7 +82,6 @@ async function chargementPanier() {
                     produit.quantite++;
                     produit.prixTotal = produit.quantite * produit.prixUnitaire ;
                 }
-
             }
             let prixTotalProduit = [];
             for (let produit of listeProduit) {
@@ -93,13 +92,9 @@ async function chargementPanier() {
             }
         affichePrixTotalPanier(prixPanier);
         if(sessionStorage.getItem("totalPrixPanier") == null){
-
             sessionStorage.setItem("totalPrixPanier", JSON.stringify([]));
         }
-        var totalPrixPanier = JSON.parse(sessionStorage.getItem("totalPrixPanier"));
-        totalPrixPanier.push(prixPanier);
-        sessionStorage.setItem("totalPrixPanier",JSON.stringify(totalPrixPanier));
-
+        sessionStorage.setItem("totalPrixPanier", JSON.stringify([prixPanier]));
     } else {
         affichePanierVide();
     }

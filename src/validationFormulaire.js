@@ -4,34 +4,41 @@ const API_URL = `${API._HOST + API._DIR + API._CATEGORY}`;
 
 export function validationFormulaire() {
 
-    var regex = /^[a-zA-ZéèîïÉÈÎÏ][a-zéèêàçîï]+([-'\s][a-zA-ZéèîïÉÈÎÏ][a-zéèêàçîï]+)?$/;
-    var regexEmail = /^[a-z0-9._-]+@[a-z0-9._-]+\.[a-z]{2,6}$/;
-    var regexCP = /^((0[1-9])|([1-8][0-9])|(9[0-8])|(2A)|(2B))[0-9]{3}$/;
+    const regex = /^[a-zA-ZéèîïÉÈÎÏ][a-zéèêàçîï]+([-'\s][a-zA-ZéèîïÉÈÎÏ][a-zéèêàçîï]+)?$/;
+    const regexEmail = /^[a-z0-9._-]+@[a-z0-9._-]+\.[a-z]{2,6}$/;
+    const regexCP = /^((0[1-9])|([1-8][0-9])|(9[0-8])|(2A)|(2B))[0-9]{3}$/;
 
-    var formValid = document.getElementById('boutton_envoi');
+    const formValid = document.getElementById('boutton_envoi');
 
-    var nom = document.getElementById('nom');
-    var nomValid = regex;
+    const nom = document.getElementById('nom');
+    const nomValid = regex;
 
-    var prenom = document.getElementById('prenom');
-    var prenomValid = regex;
+    const prenom = document.getElementById('prenom');
+    const prenomValid = regex;
 
-    var inputEmail = document.getElementById('inputEmail');
-    var inputEmailValid = regexEmail;
+    const inputEmail = document.getElementById('inputEmail');
+    const inputEmailValid = regexEmail;
 
-    var Adresse = document.getElementById('Adresse');
+    const Adresse = document.getElementById('Adresse');
 
-    var CP = document.getElementById('CP');
-    var CPValid = regexCP;
+    const CP = document.getElementById('CP');
+    const CPValid = regexCP;
 
-    var ville = document.getElementById('ville');
-    var villeValid = regex;
+    const ville = document.getElementById('ville');
+    const villeValid = regex;
 
     formValid.addEventListener('click', validation);
 
     function validation(event) {
 
         var error = false;
+        // vide les messages d'erreurs
+        nom.setCustomValidity('');
+        prenom.setCustomValidity('');
+        inputEmail.setCustomValidity('');
+        Adresse.setCustomValidity('');
+        CP.setCustomValidity('');
+        ville.setCustomValidity('');
         //Nom
         if (nom.validity.valueMissing) {
             error = true;
@@ -53,7 +60,6 @@ export function validationFormulaire() {
             prenom.setCustomValidity('Format incorrect');
             prenom.checkValidity();
         }
-
         //Email
         if (inputEmail.validity.valueMissing) {
             error = true;
@@ -64,14 +70,12 @@ export function validationFormulaire() {
             inputEmail.setCustomValidity('Format incorrect');
             inputEmail.checkValidity();
         }
-
         //Adresse
         if (Adresse.validity.valueMissing) {
             error = true;
             Adresse.setCustomValidity('Adresse manquante');
             Adresse.checkValidity();
         }
-
         //Code postal
         if (CP.validity.valueMissing) {
             error = true;
@@ -82,7 +86,6 @@ export function validationFormulaire() {
             CP.setCustomValidity('Format incorrect');
             CP.checkValidity();
         }
-
         //Ville
         if (ville.validity.valueMissing) {
             error = true;
@@ -94,8 +97,7 @@ export function validationFormulaire() {
             ville.checkValidity();
         }
 
-        // finir coordonnées bancaire
-
+        // si pas d'erreur lors de la saisi du formulaire envoi des données au serveur
         if (!error) {
             event.preventDefault();
             var panier =
@@ -124,7 +126,6 @@ export function validationFormulaire() {
                 request.send(JSON.stringify(panier));
             });
             envoiPanier.then((result) => {
-                console.log(result);
 
                 if (sessionStorage.getItem("validation") == null) {
 
@@ -133,7 +134,6 @@ export function validationFormulaire() {
                 var validation = JSON.parse(sessionStorage.getItem("validation"));
 
                 validation.push(result);
-                validation.push();
                 sessionStorage.setItem("validation", JSON.stringify(validation));
                 window.location = "confirmation.html";
             });
