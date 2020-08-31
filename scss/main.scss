@@ -8,7 +8,6 @@ $primaryColor: rgb(0, 178, 165);
 }
 
 
-
 .card{
   width: 30rem;
   margin: 3rem 10rem 0 10rem;
@@ -24,15 +23,12 @@ footer{
   margin-top: 15rem;
 }
 
-
-
 .navbar-light .navbar-brand{
  @include primaryColor($primaryColor,1);
 }
 
 .navbar-light .navbar-nav .active >.nav-link {
   @include primaryColor($primaryColor,0.8);
-
 }
 .navbar-light .navbar-nav .nav-link {
   @include primaryColor($primaryColor,0.4);
@@ -54,7 +50,6 @@ footer{
 .infoAccueil{
   @include primaryColor($primaryColor,1);
 text-align: center;
-
 }
 .card-title{
   color: $primaryColor;
@@ -93,6 +88,7 @@ select{
 #Panier table td{
   padding: 0.75rem;
   vertical-align: top;
+  text-align: center;
 }
 #Panier table tfoot tr{
   border:  solid 1px #0b2e13;
